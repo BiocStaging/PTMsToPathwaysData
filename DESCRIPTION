@@ -14,8 +14,6 @@ LazyData: false
 Depends:
     R (>= 4.6.0),
     ExperimentHub
-Imports:
-    ExperimentHub
 Suggests:
     knitr,
     rmarkdown
