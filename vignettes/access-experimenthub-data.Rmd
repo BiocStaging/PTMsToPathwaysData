@@ -1,0 +1,56 @@
+---
+title: "Accessing PTMsToPathwaysData from ExperimentHub"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Accessing PTMsToPathwaysData from ExperimentHub}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = ">>")
+```
+
+This vignette shows how to find and download PTMsToPathways resources from
+ExperimentHub once the records are available.
+
+## Connect to ExperimentHub
+
+```{r setup, eval = FALSE}
+library(ExperimentHub)
+
+eh <- ExperimentHub()
+```
+
+## Find PTMsToPathwaysData records
+
+You can query directly:
+
+```{r tag-query, eval = FALSE}
+ptm_hub <- query(eh, "PTMsToPathwaysData")
+ptm_hub
+```
+
+## Download a resource
+
+Select an entry by index or by accession, then retrieve the object.
+
+```{r download, eval = FALSE}
+# Example: first matched record
+obj1 <- ptm_hub[[1]]
+```
+
+## Inspect downloaded objects
+
+```{r inspect, eval = FALSE}
+class(obj1)
+str(obj1, max.level = 1)
+```
+
+After a resource is downloaded once, ExperimentHub caches it locally and will
+reuse the cached copy in later sessions.
+
+## Session info
+```{r session-info, eval = TRUE}
+sessionInfo()
+```
