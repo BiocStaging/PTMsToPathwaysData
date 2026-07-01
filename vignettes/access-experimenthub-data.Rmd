@@ -16,7 +16,7 @@ ExperimentHub once the records are available.
 
 ## Connect to ExperimentHub
 
-```{r setup, eval = FALSE}
+```{r setup, eval = TRUE}
 library(ExperimentHub)
 
 eh <- ExperimentHub()
@@ -26,7 +26,7 @@ eh <- ExperimentHub()
 
 You can query directly:
 
-```{r tag-query, eval = FALSE}
+```{r tag-query, eval = TRUE}
 ptm_hub <- query(eh, "PTMsToPathwaysData")
 ptm_hub
 ```
