@@ -9,5 +9,6 @@
 #' @export
 PTMsToPathwaysData <- function() {
     eh <- ExperimentHub::ExperimentHub()
-    eh[grepl("PTMsToPathwaysData", eh$Tags)]
+    # when published, this will run
+    # eh[grepl("PTMsToPathwaysData", eh$Tags)]
 }

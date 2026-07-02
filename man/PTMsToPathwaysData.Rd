@@ -13,6 +13,6 @@ A subsetted \code{ExperimentHub} object.
 Returns ExperimentHub records tagged for PTMsToPathways BRCA data.
 }
 \examples{
- ptm_data <- PTMsToPathwaysData()
- ptm_data
+ptm_data <- PTMsToPathwaysData()
+ptm_data
 }
