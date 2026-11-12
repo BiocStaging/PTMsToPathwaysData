@@ -24,8 +24,9 @@ save(newphos)
 
 #   FunctionKey.txt is a mapping from genes to their functions.
 #    function_key.rda is a dataframe of the above file.
+# func_key.local.path = "path/to/your_function_key.txt"
 function_key <- read.table(
-  file = "inst/extdata/FunctionKey.txt",
+  file = func.key.local.path
   header = TRUE,
   sep = "\t",
   comment.char = "#",
@@ -52,12 +53,12 @@ stringdb.edges = GetSTRINGdb.edges(gene.cccn.matrix, gene.cccn.nodes)
 # gm.local.path = "path/to/your_hugo.tsv"
 genemania.edges = GetGeneMANIA.edges("unneeded", gene.cccn.nodes, local = TRUE, genemania.local.path = gm.local.path)
 
-kse.path <- system.file("extdata", "Kinase_Substrate_Dataset.txt", package = "PTMsToPathways")
-kinsub.edges <- GetKinsub.edges(kse.path, gene.cccn.nodes)
+# kse.local.path = "path/to/your_kinase_substrate_dataset.txt"
+kinsub.edges <- GetKinsub.edges(kse.local.path, gene.cccn.nodes)
 network.list = BuildClusterFilteredNetwork(gene.cccn.edges, stringdb.edges, genemania.edges, kinsub.edges)
 save(network.list, file = "full_CFN_output.rda")
 
-bioplanet.file <- system.file("extdata", "pathway.csv", package = "PTMsToPathways")
+# bioplanet.local.path = "path/to/your_bioplanet_file.csv"
 PCN.data = BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file)
 save(PCN.data, "full_PCN_data.rda")
 
@@ -74,8 +75,8 @@ save(PCN.data, "full_PCN_data.rda")
 # BRCA data vignette there. The following script also
 
 # Process the BRCA phosphoproteomics data for use in the vignette
-file_path <- system.file("extdata", "PhosphoDiscoData_mmc9.txt", package = "PTMsToPathways")
-newphos <- utils::read.table(file_path, header = TRUE,
+# phosphodisco.data.path = "path/to/your_local_PhosphoDiscoData_mmc9.txt"
+newphos <- utils::read.table(phosphodisco.data.path, header = TRUE,
                                stringsAsFactors = FALSE, sep = "\t", comment.char = "#",
                                na.strings = "", quote = "", fill = TRUE)
  newphos$Amino.Acid <- sapply(newphos$variable_sites_names, function(x) substring (x, 1, 1))
@@ -102,27 +103,27 @@ save(brca_CCCN_data)
 gene.cccn.edges <- brca_CCCN_data[[2]]
 gene.cccn.nodes <- brca_CCCN_data[[3]]
 # this local file path will need to be changed
-string_db_filepath <- "~/Downloads/string_hs_hugo.tsv"
+# local.string.db.filepath <- "your/local/string_hs_hugo.tsv"
 BRCA_stringdb.edges <- GetSTRINGdb.edges(gene.cccn.edges,
                               gene.cccn.nodes,
                               local                  = TRUE,
-                              string.local.path      = string_db_filepath
+                              string.local.path      = local.string.db.filepath
 )
 save(BRCA_stringdb.edges)
 
 # Get GeneMania data from local file.
-genemania_db_filepath <- "~/Downloads/hs_interactions_hugo.tsv"
+# this local file path will need to be changed
+# local.genemania.filepath <- "your/local/genemania.tsv"
 BRCA_genemania.edges <- GetGeneMANIA.edges (gm.all.edges.path,
                                 gene.cccn.nodes,
                                 local                = TRUE,
-                                genemania.local.path = genemania_db_filepath,
+                                genemania.local.path = local.genemania.filepath,
                                 gm.interaction.types = c("Pathway", "Physical Interactions", "Predicted"))
 save(BRCA_genemania.edges)
 
 # Make PCN
-bioplanet.file <- system.file("extdata", "bioplanet_pathway_June2025.csv", package = "PTMsToPathways")
+# bioplanet.local.path = "path/to/your_bioplanet_file.csv"
 # clusters are already made in brca_clusterlist_data, so we can just use those
 common.clusters <- brca_clusterlist_data[[1]]
-BRCA_PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file)
+BRCA_PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.local.path)
 save(BRCA_PCN.data)
-
